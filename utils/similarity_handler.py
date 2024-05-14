@@ -6,13 +6,10 @@ import torch.nn.functional as functional
 class SimilarityHandler:
     @staticmethod
     def get_response(model, file1, file2):
-        def load_image_from_file(file, transformation, save_path=None):
+        def load_image_from_file(file, transformation):
             image = Image.open(file).convert('RGB')
             if transformation is not None:
                 image = transformation(image)
-                if save_path:
-                    save_image = transforms.ToPILImage()(image)
-                    save_image.save(save_path)
                 image = image.unsqueeze(0)
             return image
 

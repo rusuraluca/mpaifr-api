@@ -3,8 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as functional
 
 from ...utils.margin_loss import MarginLoss
-from ...utils.metrics import compute_accuracy
-
 from facenet_pytorch import InceptionResnetV1
 
 
@@ -97,18 +95,3 @@ class Multitask_DAL(nn.Module):
         if return_embeddings:
             return functional.normalize(id_embeddings)
 
-        id_logits = self.margin_loss(id_embeddings, labels)
-        id_loss = self.id_criterion(id_logits, labels)
-        id_accuracy = compute_accuracy(torch.max(id_logits, dim=1)[1], labels)
-
-        age_logits = self.age_classifier(age_embeddings)
-        age_loss = self.age_criterion(age_logits, age_groups)
-        age_accuracy = compute_accuracy(torch.max(age_logits, dim=1)[1], age_groups)
-
-        gender_logits = self.gender_classifier(gender_embeddings)
-        gender_loss = self.gender_criterion(gender_logits, genders)
-        gender_accuracy = compute_accuracy(torch.max(gender_logits, dim=1)[1], genders)
-
-        cano_cor = self.bcca(id_embeddings, age_embeddings, gender_embeddings)
-
-        return id_loss, id_accuracy, age_loss, age_accuracy, gender_loss, gender_accuracy, cano_cor
