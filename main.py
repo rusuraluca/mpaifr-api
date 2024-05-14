@@ -16,7 +16,7 @@ app = Flask(__name__)
 config = CONFIG.instance()
 model = ModelHandler().get_model(config['model_name'], config['dataset'], config['margin_loss'])
 if config["model_weights"]:
-    model.load_state_dict(torch.load(config["model_weights"]))
+    model.load_state_dict(torch.load(config["model_weights"]), map_location=torch.device('cpu')
     print(f'Loaded weights from {config["model_weights"]}')
 model.eval()
 
