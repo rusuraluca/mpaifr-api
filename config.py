@@ -22,7 +22,7 @@ class CONFIG(object):
             cls._instance = {
                 'model_name': 'multitask_dal', #singletask, multitask, multitask_dal
                 'dataset': 'small', #big, small
-                'model_weights': '',
+                'model_weights': 'aifr/models/multitask_dal/results/80-20small/best-model-93-89.pth',
                 'margin_loss': 'cosface', #cosface, arcface
             }
         return cls._instance
