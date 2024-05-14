@@ -9,7 +9,6 @@ from utils.similarity_handler import SimilarityHandler
 app = Flask(__name__)
 
 config = CONFIG.instance()
-
 model = Multitask_DAL(embedding_size=512, number_of_classes=500, margin_loss_name=config['margin_loss'])
 if config["model_weights"]:
     model.load_state_dict(torch.load(config["model_weights"], map_location='cpu'))
@@ -33,7 +32,7 @@ def get_similarity():
     if not file1 or not file2:
         return jsonify({"invalid_request_error": "Invalid files provided."}), 400
 
-    similarity = 0 #SimilarityHandler.get_response(model, file1, file2)
+    similarity = 1234 # SimilarityHandler.get_response(model, file1, file2)
 
     if similarity:
         return jsonify({"similarity": round(similarity, 2)})
