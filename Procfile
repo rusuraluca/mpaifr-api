@@ -1,1 +1,1 @@
-web: python main.py
+web: git lfs pull python main.py
