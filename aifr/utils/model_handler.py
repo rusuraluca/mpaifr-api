@@ -4,8 +4,6 @@ import sys
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(current_dir))
 sys.path.append(parent_dir)
-from aifr.models.singletask.model import Singletask
-from aifr.models.multitask.model import Multitask
 from aifr.models.multitask_dal.model import Multitask_DAL
 
 
@@ -13,8 +11,6 @@ class ModelHandler:
     @staticmethod
     def get_model(model_name, dataset_name, margin_loss_name):
         model_type = {
-            'singletask': Singletask,
-            'multitask': Multitask,
             'multitask_dal': Multitask_DAL
         }
 
