@@ -1,4 +1,7 @@
 import torch
+from PIL import Image
+from torchvision import transforms as transforms
+import torch.nn.functional as functional
 
 from flask import Flask, request, jsonify, Response
 from config import CONFIG
