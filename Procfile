@@ -1,1 +1,1 @@
-web: gunicorn main:app --worker-class=gevent --worker-connections=1000 --workers=3 --preload
+web: gunicorn main:app --workers 17 --preload
