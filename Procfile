@@ -1,1 +1,1 @@
-web: gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --timeout 600 --preload
+web: gunicorn main:app --worker-class=gevent --worker-connections=1000 --workers=3 --preload
