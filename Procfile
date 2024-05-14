@@ -1,1 +1,1 @@
-web: gunicorn main:app --workers 1 --timeout 1000 --preload
+web: gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --timeout 600 --preload
