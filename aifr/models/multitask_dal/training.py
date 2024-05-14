@@ -17,7 +17,7 @@ from aifr.utils.image_loader import ImageLoader
 
 class Multitask_DAL_Trainer:
     def __init__(self, model, config):
-        self.device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
+        self.device = torch.device('cpu')
 
         self.model = model.to(self.device)
         self.config = config
