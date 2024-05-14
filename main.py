@@ -33,7 +33,7 @@ def get_similarity():
     if not file1 or not file2:
         return jsonify({"invalid_request_error": "Invalid files provided."}), 400
 
-    similarity = SimilarityHandler.get_response(model, file1, file2)
+    similarity = 0 #SimilarityHandler.get_response(model, file1, file2)
 
     if similarity:
         return jsonify({"similarity": round(similarity, 2)})
