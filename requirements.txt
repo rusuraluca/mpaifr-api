@@ -1,7 +1,5 @@
---find-links https://download.pytorch.org/whl/cpu/torch_stable.html
-torch==2.0.1
---find-links https://download.pytorch.org/whl/cpu/torch_stable.html
-torchvision==0.15.2
+torch==2.2.0+cpu
+torchvision==0.15.2+cpu
 facenet-pytorch
 PIL
 flask
