@@ -1,2 +1,10 @@
-torch
+--find-links https://download.pytorch.org/whl/cpu/torch_stable.html
+torch==2.0.1
+--find-links https://download.pytorch.org/whl/cpu/torch_stable.html
+torchvision==0.15.2
 facenet-pytorch
+PIL
+flask
+itertools
+os
+sys
