@@ -36,16 +36,19 @@ def get_similarity():
         return jsonify({"invalid_request_error": "Invalid files provided."}), 400
 
     def load_image_from_file(file, transformation):
-                image = Image.open(file).convert('RGB')
-                if transformation is not None:
-                    image = transformation(image)
-                    image = image.unsqueeze(0)
-                return image
+        with Image.open(file) as img:
+            img = img.convert('RGB')
+            if transformation is not None:
+                img = transformation(img)
+            img = img.unsqueeze(0)
+        return img
 
     transform = transforms.Compose([
-                    transforms.ToTensor(),
-                    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-                ])
+        transforms.Resize((160, 160)),
+        transforms.CenterCrop(160),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
 
     image1 = load_image_from_file(file1, transform)
     image2 = load_image_from_file(file2, transform)
