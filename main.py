@@ -18,6 +18,16 @@ if config["model_weights"]:
     print(f'Loaded weights from {config["model_weights"]}')
 model.eval()
 
+transform = transforms.Compose([
+    transforms.Resize((160, 160)),
+    transforms.CenterCrop(160),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
+def load_and_transform_image(file):
+    with Image.open(file).convert('RGB') as img:
+        return transform(img).unsqueeze(0)
 
 @app.route('/')
 def home():
@@ -35,23 +45,8 @@ def get_similarity():
     if not file1 or not file2:
         return jsonify({"invalid_request_error": "Invalid files provided."}), 400
 
-    def load_image_from_file(file, transformation):
-        with Image.open(file) as img:
-            img = img.convert('RGB')
-            if transformation is not None:
-                img = transformation(img)
-            img = img.unsqueeze(0)
-        return img
-
-    transform = transforms.Compose([
-        transforms.Resize((160, 160)),
-        transforms.CenterCrop(160),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
-
-    image1 = load_image_from_file(file1, transform)
-    image2 = load_image_from_file(file2, transform)
+    image1 = load_and_transform_image(file1)
+    image2 = load_and_transform_image(file2)
 
     #with torch.no_grad():
     #    features1 = model(image1, return_embeddings=True)
@@ -63,7 +58,6 @@ def get_similarity():
         return jsonify({"similarity": round(similarity, 2)})
 
     return jsonify({"request_error": "The parameters were valid but the request failed."}), 402
-
 
 @app.route('/batch_images_similarity', methods=['POST'])
 def get_batch_similarity():

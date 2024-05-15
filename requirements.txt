@@ -5,3 +5,4 @@ torchvision==0.17.0+cpu
 facenet-pytorch
 flask
 gunicorn
+pillow-simd
